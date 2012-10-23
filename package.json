@@ -1,0 +1,21 @@
+{
+  "name": "emu",
+  "description": "Simple documentation generator.",
+  "author": "Brian McKenna <brian@brianmckenna.org> (http://brianmckenna.org/)",
+  "homepage": "http://emu.brianmckenna.org/",
+  "license": "MIT",
+  "repository": {"type": "git", "url": "git://github.com/pufuwozu/emu.js.git"},
+
+  "bin": {
+    "emu": "./emu"
+  },
+  "dependencies": {
+    "esprima": "~1.0.0"
+  },
+  "keywords": [
+    "documentation"
+  ],
+
+  "main": "index.js",
+  "version": "0.0.1"
+}
