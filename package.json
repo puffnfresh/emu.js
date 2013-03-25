@@ -4,8 +4,10 @@
   "author": "Brian McKenna <brian@brianmckenna.org> (http://brianmckenna.org/)",
   "homepage": "http://emu.brianmckenna.org/",
   "license": "MIT",
-  "repository": {"type": "git", "url": "git://github.com/pufuwozu/emu.js.git"},
-
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pufuwozu/emu.js.git"
+  },
   "bin": {
     "emu": "./emu"
   },
@@ -15,7 +17,6 @@
   "keywords": [
     "documentation"
   ],
-
   "main": "index.js",
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
