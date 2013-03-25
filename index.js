@@ -24,19 +24,10 @@
 
 **/
 
-var parse = require('esprima').parse,
-    source = '';
+function getComments(source) {
+    var comments = require('esprima').parse(source, {comment: true}).comments;
 
-process.stdin.resume();
-
-process.stdin.on('data', function(d) {
-    source += d.toString();
-});
-
-process.stdin.on('end', function() {
-    var comments = parse(source, {comment: true}).comments;
-
-    console.log(comments.filter(function(c) {
+    return comments.filter(function(c) {
         // Only block comments with double asterisks
         return c.type == 'Block' && c.value[0] == '*' && c.value[c.value.length - 1] == '*';
     }).map(function(c) {
@@ -52,5 +43,6 @@ process.stdin.on('end', function() {
         }
 
         return value.split(prefix).join('\n').replace(/^\n+/, '');
-    }).join('\n\n'));
-});
+    }).join('\n\n');
+}
+exports.getComments = getComments;

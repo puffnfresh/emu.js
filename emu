@@ -1,2 +1,13 @@
 #!/usr/bin/env node
-require('./index');
+
+var source = '';
+
+process.stdin.resume();
+
+process.stdin.on('data', function(d) {
+    source += d.toString();
+});
+
+process.stdin.on('end', function() {
+    console.log(require('./index').getComments(source));
+});
