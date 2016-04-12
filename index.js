@@ -3,60 +3,65 @@
 
    emu is a tiny documentation generator. It does the following:
 
-   * Parses stdin JavaScript
-   * Extract block comments with double asterisks
-   * Extract line comments with triple forward slash
-   * Trims out the prefixed whitespace
-   * Prints the results to stdout
-
-   That's it.
-
-   ## Example
-
-   See the `index.js` file for an example of how emu generates its own
-   README.md
-
-   ## Usage
-
-       emu < bilby.js > bilby-docs.md
-
-   Now you can process the output with something like
-   [Pandoc](http://johnmacfarlane.net/pandoc).
-
 **/
 
-function getComments(source) {
+const BLOCK = '/**';
+const LINE = '///';
 
-    var comments = require('esprima').parse(source, {comment: true}).comments;
-
-    return comments.filter(function(c) {
-        // Only block comments with double asterisks
-        if (c.type == 'Block') {
-          return c.value[0] == '*' && c.value[c.value.length - 1] == '*';
-        } else if (c.type == 'Line') {
-          return c.value[0] == '/';
-        }
+exports.process = function process(source) {
+  return require('literalizer').lex(source)  /// * Parses stdin JavaScript
+    .filter(x => {
+      if (x.type !== 1) {
         return false;
-    }).map(function(c) {
-        var value,r,prefix, result;
-        if (c.type == 'Block') {
-          value = c.value.slice(1, c.value.length - 1).replace(/\s+$/, '');
-          r = /(\n[ \t]+)[^ \t\n]/g;
-        } else if (c.type == 'Line') {
-          value = c.value.replace(/\s+$/, '');
-          r = /(\/[ \t]+)[^ \t\n]/g;
+      }
+      x.type = x.val.slice(0, 3);
+      if (x.type === BLOCK && x.val.slice(-3) === '**/') {  /// * Extract block comments with double asterisks
+        return true;
+      }
+      if (x.type === LINE) { /// * Extract line comments with triple forward slash
+        return true;
+      }
+      return false;
+    })
+    .map(c => {
+      var value;
+      var prefix;
+      var r;
+      var result;
+
+      if (c.type === BLOCK) {
+        value = c.val.slice(3, -3).replace(/\s+$/, '');
+        r = /(\n[ \t]+)[^ \t\n]/g;
+
+        while (result = r.exec(value)) {  // eslint-disable-line no-cond-assign
+          if (prefix === undefined || result[1].length < prefix.length) {
+            prefix = result[1];
+          }
         }
 
-        while(result = r.exec(value)) {
-            if(prefix === undefined || result[1].length < prefix.length)
-                prefix = result[1];
-        }
+        return '\n' + value.split(prefix).join('\n').replace(/^\n+/, '');  /// * Trims out the prefixed whitespace
+      }
 
-        if (c.type == 'Block') {
-          return '\n' + value.split(prefix).join('\n').replace(/^\n+/, '');
-        } else if (c.type == 'Line') {
-          return value.split(prefix).join('').replace(/^\n+/, '');
-        }
-    }).join('\n');
-}
-exports.getComments = getComments;
+      value = c.val.slice(4).replace(/\s+$/, '');
+      return value.split(prefix).join('').replace(/^\n+/, '');
+    })
+    .join('\n');   /// * Prints the results to stdout
+};
+
+/**
+
+  That's it.
+
+  ## Example
+
+  See the `index.js` file for an example of how emu generates its own
+  README.md
+
+  ## Usage
+
+      emu < index.js > README.md
+
+  Now you can process the output with something like
+  [Pandoc](http://johnmacfarlane.net/pandoc).
+
+**/
