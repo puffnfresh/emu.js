@@ -3,7 +3,8 @@
 emu is a tiny documentation generator. It does the following:
 
 * Parses stdin JavaScript
-* Extract comments with double asterisks
+* Extract block comments with double asterisks
+* Extract line comments with triple forward slash
 * Trims out the prefixed whitespace
 * Prints the results to stdout
 
