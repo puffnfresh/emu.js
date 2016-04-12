@@ -12,7 +12,7 @@
     "emu": "./emu"
   },
   "dependencies": {
-    "esprima": "~1.0.0"
+    "esprima": "^2.7.2"
   },
   "keywords": [
     "documentation"
