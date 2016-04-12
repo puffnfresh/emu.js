@@ -1,0 +1,25 @@
+/**
+  # These are not JavaScript
+
+**/
+
+/// - C
+
+int square(int x)
+{
+    return x * x;
+}
+
+/// - Coffee Script
+
+(x) -> x * square x
+
+/// - Scheme
+
+(define square
+  (lambda (x)
+    (* x x)))
+
+/// - Joy
+
+DEFINE square == dup * .
