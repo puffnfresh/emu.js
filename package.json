@@ -20,7 +20,7 @@
   "main": "index.js",
   "version": "0.0.2",
   "scripts": {
-    "test": "xo && ava ./test.js"
+    "test": "xo && ava"
   },
   "devDependencies": {
     "ava": "^0.14.0",
