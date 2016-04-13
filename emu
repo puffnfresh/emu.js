@@ -4,10 +4,10 @@ var source = '';
 
 process.stdin.resume();
 
-process.stdin.on('data', function(d) {
-    source += d.toString();
+process.stdin.on('data', function (d) {
+  source += d.toString();
 });
 
-process.stdin.on('end', function() {
-    console.log(require('./index').getComments(source));
+process.stdin.on('end', function () {
+  console.log(require('./index').process(source));
 });

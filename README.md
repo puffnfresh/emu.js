@@ -1,9 +1,10 @@
+
 # emu.js
 
 emu is a tiny documentation generator. It does the following:
-
 * Parses stdin JavaScript
-* Extract comments with double asterisks
+* Extract block comments with double asterisks
+* Extract line comments with triple forward slash
 * Trims out the prefixed whitespace
 * Prints the results to stdout
 
@@ -16,7 +17,7 @@ README.md
 
 ## Usage
 
-    emu < bilby.js > bilby-docs.md
+    emu < index.js > README.md
 
 Now you can process the output with something like
 [Pandoc](http://johnmacfarlane.net/pandoc).

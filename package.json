@@ -12,11 +12,25 @@
     "emu": "./emu"
   },
   "dependencies": {
-    "esprima": "~1.0.0"
+    "literalizer": "^0.4.0-a"
   },
   "keywords": [
     "documentation"
   ],
   "main": "index.js",
-  "version": "0.0.2"
+  "version": "0.0.2",
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "xo": "^0.14.0"
+  },
+  "xo": {
+    "semicolon": true,
+    "space": 2,
+    "rules": {
+      "spaced-comment": 0
+    }
+  }
 }
