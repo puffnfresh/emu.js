@@ -10,7 +10,7 @@ const LINE = '///';
 
 exports.process = function process(source) {
   return require('literalizer').lex(source)  /// * Parses stdin JavaScript
-    .filter(x => {
+    .filter(function (x) {
       if (x.type !== 1) {
         return false;
       }
@@ -23,7 +23,7 @@ exports.process = function process(source) {
       }
       return false;
     })
-    .map(c => {
+    .map(function (c) {
       var value;
       var prefix;
       var r;
